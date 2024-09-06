@@ -25,6 +25,7 @@ export interface User {
     role: string;
     coins: number;
     finishTime: string;
+    numberOfCorrectAnswers: number;
 }
 
 export interface MarketplaceBook {
