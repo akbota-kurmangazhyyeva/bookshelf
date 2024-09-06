@@ -9,6 +9,7 @@ export interface Book {
     description: string;
     image: string;
     quantity: number;
+    genre: string;
   }
   
 export interface Review {
