@@ -3,8 +3,8 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import React from "react";
 
-const page = () => {
-    const { data,status } = useSession();
+const Page = () => {  // Capitalized the component name
+    const { data, status } = useSession();
     const router = useRouter();
   
     if (status === "loading") {
@@ -12,14 +12,14 @@ const page = () => {
     }
   
     if (status === "unauthenticated") {
-      router.push("login");
+      router.push("/login");  // Changed to "/login" for proper path
       return null;
     }
   
-  return (
-    <div>{data?.user.name}</div>
-  )
+    return (
+      <div>{data?.user?.name}</div>
+    );
 }
 
-export default page
+export default Page;
 
