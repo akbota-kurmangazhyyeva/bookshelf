@@ -1,5 +1,5 @@
 export interface Book {
-    id: number;
+    _id: number;
     title: string;
     authors: string[];
     online: boolean;
@@ -14,7 +14,7 @@ export interface Book {
   }
 
 export interface Review {
-    id: number;
+    _id: number;
     owner: User;
     text: string;
 }
@@ -59,8 +59,7 @@ export interface Contest {
     start: string;
     end: string;
     participants: User[];
-    finished: boolean;
-    closed: boolean;
+    status: string;
 }
 
 export interface Request {

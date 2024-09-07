@@ -26,7 +26,7 @@ const navItems: NavItem[] = [
   },
   { 
     label: 'Contests',
-    href: '/contest',
+    href: '/contests',
     // dropdownItems: [
     //   { label: 'Web Development', href: '/services/web-development' },
     //   { label: 'Mobile Apps', href: '/services/mobile-apps' },
