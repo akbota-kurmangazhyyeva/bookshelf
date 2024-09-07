@@ -9,7 +9,7 @@ const Register: React.FC = () => {
   const [phone, setPhone] = useState('');
   const [error, setError] = useState('');
   const router = useRouter();
-  const base_url = process.env.NEXT_PUBLIC_BASE_URL;
+  const base_url = process.env.NEXT_PUBLIC_API_BASE_URL;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
