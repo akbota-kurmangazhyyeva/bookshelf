@@ -1,7 +1,7 @@
 export interface Book {
     id: number;
     title: string;
-    author: string;
+    authors: string[];
     online: boolean;
     location: string;
     reviews: Review[];
@@ -10,8 +10,9 @@ export interface Book {
     image: string;
     quantity: number;
     genre: string;
+    subjects: string[];
   }
-  
+
 export interface Review {
     id: number;
     owner: User;
