@@ -21,7 +21,7 @@ const Login: React.FC = () => {
       if (result?.error) {
         setError('Invalid username or password');
       } else {
-        router.push('/dashboard'); // Redirect to dashboard on successful login
+        router.push('/profile'); // Redirect to dashboard on successful login
       }
     } catch (error) {
       setError('An error occurred. Please try again.');
