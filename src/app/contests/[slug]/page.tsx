@@ -2,7 +2,7 @@
 import { Key, useEffect, useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation'; 
 import axios from 'axios';
-import { Contest } from '@/types';
+import { Contest, Test } from '@/types';
 import { useAuth } from '@/hooks/useAuth'; // Assuming useAuth hook is implemented for session management
 
 const ContestDetail: React.FC = () => {
@@ -10,9 +10,12 @@ const ContestDetail: React.FC = () => {
   const slug = usePathname(); // Get the slug from URL params
   const router = useRouter(); // Use router to navigate back or elsewhere
   const [loading, setLoading] = useState(true);
-  const [newTest, setNewTest] = useState<any>({
-    bookId: '',
-    questions: [{ text: '', answers: ['', '', ''], correctAnswer: '' }]
+  const [newTest, setNewTest] = useState<Test>({
+    book: 0, 
+    questions: [{
+        text: '', answers: ['', '', ''], correctAnswer: '',
+        _id: ''
+    }]
   });
   const { session } = useAuth(); // Check if user is logged in
 
@@ -60,15 +63,16 @@ const ContestDetail: React.FC = () => {
         }
         return prevContest;
       });
-      setNewTest({ bookId: '', questions: [{ text: '', answers: ['', '', ''], correctAnswer: '' }] }); // Reset form
+      setNewTest({ book: 0, questions: [{ text: '', answers: ['', '', ''], correctAnswer: '' }] }); // Reset form
     } catch (error) {
       console.error('Failed to add test', error);
     }
   };
 
-  const handleNavigateToTest = (testId: string) => {
-    router.push(`/contests/${slug}/tests/test-${testId}`); // Navigate to the individual test page
+  const handleNavigateToTest = (testId: string = '') => {
+    router.push(`${slug}/tests/test-${testId}`); // Navigate to the individual test page
   };
+  
 
   if (loading) {
     return <div className="text-center mt-10 text-lg">Loading contest details...</div>;
@@ -101,7 +105,7 @@ const ContestDetail: React.FC = () => {
         {contest.tests.length > 0 ? (
           contest.tests.map((test, testIndex) => (
             <div key={testIndex}>
-              <h3 onClick={() => handleNavigateToTest(test.id)} className="cursor-pointer text-blue-500">
+              <h3 onClick={() => handleNavigateToTest(test._id)} className="cursor-pointer text-blue-500">
                 Test {testIndex + 1}
               </h3>
               {test.questions.length > 0 ? (
@@ -124,8 +128,8 @@ const ContestDetail: React.FC = () => {
             <input
               type="text"
               placeholder="Book ID"
-              value={newTest.bookId}
-              onChange={(e) => setNewTest({ ...newTest, bookId: e.target.value })}
+              value={newTest.book}
+              onChange={(e) => setNewTest({ ...newTest, book: parseInt(e.target.value) })}
               className="mb-2 p-2 border border-gray-300 rounded"
             />
             <div>
@@ -136,7 +140,7 @@ const ContestDetail: React.FC = () => {
                     placeholder="Question"
                     value={question.text}
                     onChange={(e) =>
-                      setNewTest((prevTest: { questions: any; }) => {
+                      setNewTest((prevTest: Test) => {
                         const questions = [...prevTest.questions];
                         questions[qIndex as number].text = e.target.value;
                         return { ...prevTest, questions };
@@ -149,7 +153,7 @@ const ContestDetail: React.FC = () => {
                     placeholder="Correct Answer"
                     value={question.correctAnswer}
                     onChange={(e) =>
-                      setNewTest((prevTest: { questions: any; }) => {
+                      setNewTest((prevTest: Test) => {
                         const questions = [...prevTest.questions];
                         questions[qIndex as number].correctAnswer = e.target.value;
                         return { ...prevTest, questions };

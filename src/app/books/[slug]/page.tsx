@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import axios from 'axios';
-import { useRouter, usePathname } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { Review } from '@/types';
 
 interface Book {
@@ -22,7 +22,6 @@ export default function BookPage() {
   const [newReview, setNewReview] = useState('');
   const [rating, setRating] = useState<number>(0); // New state for rating
   const { session } = useAuth();
-  const router = useRouter();
   const slug = usePathname();
   const bookId = slug ? (slug as string).split('-').pop() : '';
 

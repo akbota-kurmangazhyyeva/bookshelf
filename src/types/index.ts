@@ -39,14 +39,14 @@ export interface MarketplaceBook {
 }
 
 export interface Question {
-    id: string;
+    _id?: string;
     text: string;
     correctAnswer: string;
     answers: string[];
 }
 export interface Test {
-    id: string;
-    book: Book;
+    _id?: string;
+    book: number;
     questions: Question[];
 }
 

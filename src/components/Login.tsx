@@ -1,4 +1,3 @@
-// components/Login.tsx
 import React, { useState } from 'react';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
@@ -27,6 +26,8 @@ const Login: React.FC = () => {
       }
     } catch (error) {
       setError('An error occurred. Please try again.');
+    } finally {
+      setIsLoading(false); // Stop loading when done
     }
   };
 
@@ -54,6 +55,7 @@ const Login: React.FC = () => {
                 placeholder="Username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
+                disabled={isLoading} // Disable while loading
               />
             </div>
             <div>
@@ -69,6 +71,7 @@ const Login: React.FC = () => {
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                disabled={isLoading} // Disable while loading
               />
             </div>
           </div>
@@ -81,8 +84,13 @@ const Login: React.FC = () => {
             <button
               type="submit"
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              disabled={isLoading} // Disable the button while loading
             >
-              Sign in
+              {isLoading ? (
+                <span>Loading...</span> // Show loading text when loading
+              ) : (
+                'Sign in'
+              )}
             </button>
           </div>
         </form>
